@@ -14,13 +14,18 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
     gsGlobal->ZBuffering = GS_SETTING_OFF;
-    gsGlobal->Interlace = GS_INTERLACED;
+    
+    dmaKit_init(DCR_MODE_COMBINED, DCR_STD_PUTL, 1, DCR_MODE_SKID, 0);
+    dmaKit_chan_init(DMA_CHANNEL_CHCR);
     
     gsKit_init_screen(gsGlobal);
     
+    gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x80, 0x00, 0x00, 0x80, 0x00));
+    gsKit_queue_exec(gsGlobal);
+    gsKit_sync_flip(gsGlobal);
+    
     while (1) {
         gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x80, 0x00, 0x00, 0x80, 0x00));
-        
         gsKit_queue_exec(gsGlobal);
         gsKit_sync_flip(gsGlobal);
     }
