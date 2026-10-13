@@ -14,6 +14,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Install Build Tools
+        run: |
+          apk add --no-cache make build-base
+
       - name: Compile PS2 Project
         run: |
           make
@@ -22,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ShadowCounty-PS2-Build
-          path: ./*.elf
+          path: shadow_county.elf
