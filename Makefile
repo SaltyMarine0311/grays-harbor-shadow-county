@@ -1,10 +1,6 @@
 EE_BIN = shadow_county.elf
 EE_OBJS = main.o
 
-EE_INCS = -I$(PS2DEV)/gsKit/include
-EE_LDFLAGS = -L$(PS2DEV)/gsKit/lib
-EE_LIBS = -lkernel
-
 all: $(EE_BIN)
 
 clean:
