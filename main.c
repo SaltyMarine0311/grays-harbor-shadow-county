@@ -2,6 +2,7 @@
 #include <kernel.h>
 #include <sifrpc.h>
 #include <gsKit.h>
+#include <dmaKit.h>
 
 int main(int argc, char *argv[]) {
     SifInitRpc(0);
@@ -14,7 +15,10 @@ int main(int argc, char *argv[]) {
     gsGlobal->Mode = GS_MODE_NTSC;
     gsGlobal->Height = 448;
     gsGlobal->Width = 640;
-    gsGlobal->PSM = GS_SETMODE_NTSC;
+    gsGlobal->PSM = GS_PSM_M32;
+    gsGlobal->PSMZ = GS_PSMZ_16S;
+    gsGlobal->DoubleBuffering = GS_SETTING_ON;
+    gsGlobal->ZBuffering = GS_SETTING_OFF;
 
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_ONESHOT);
