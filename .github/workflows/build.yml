@@ -15,7 +15,9 @@ jobs:
 
       - name: Install genisoimage
         run: |
-          apk update && apk add --no-cache cdrkit
+          echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+          apk update
+          apk add --no-cache cdrkit
 
       - name: Compile PS2 Project
         run: |
