@@ -1,15 +1,16 @@
-#include <stdio.h>
 #include <tamtypes.h>
 #include <kernel.h>
 #include <sifrpc.h>
 #include <gsKit.h>
 
 int main(int argc, char *argv[]) {
-    // Initialize PS2 SIF RPC services
     SifInitRpc(0);
 
-    // Initialize gsKit graphics engine
     GSGLOBAL *gsGlobal = gsKit_init_global();
+    if (!gsGlobal) {
+        return 1;
+    }
+
     gsGlobal->Mode = GS_MODE_NTSC;
     gsGlobal->Height = 448;
     gsGlobal->Width = 640;
@@ -18,10 +19,8 @@ int main(int argc, char *argv[]) {
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_ONESHOT);
 
-    // Set background color to dark blue
     u64 bgColor = GS_SETREG_RGBA(15, 25, 50, 0);
 
-    // Game loop keeps the ELF running on hardware/emulator
     while (1) {
         gsKit_clear(gsGlobal, bgColor);
         gsKit_sync_flip(gsGlobal);
