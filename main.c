@@ -1,5 +1,4 @@
 #include <gsKit.h>
-#include <dmaKit.h>
 #include <malloc.h>
 #include <tamtypes.h>
 
@@ -14,9 +13,6 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
     gsGlobal->ZBuffering = GS_SETTING_OFF;
-    
-    dmaKit_init(DCR_MODE_COMBINED, DCR_STD_PUTL, 1, DCR_MODE_SKID, 0);
-    dmaKit_chan_init(DMA_CHANNEL_CHCR);
     
     gsKit_init_screen(gsGlobal);
     
