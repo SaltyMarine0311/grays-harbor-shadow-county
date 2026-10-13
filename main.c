@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSM = GS_PSM_CT32;
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
-    gsGlobal->ZBuffering = GS_SETTING_ON;
+    gsGlobal->ZBuffering = GS_SETTING_OFF; // Keep Z-off for 2D intro phase to avoid black screen
 
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_ONESHOT);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < 240; i++) {
         gsKit_clear(gsGlobal, bgColor);
 
-        // Pulsing / shifting 3D diamond geometry effect
+        // Pulsing diamond geometry effect
         float pulse = (i % 60) * 0.4f;
 
         // Top half of diamond
@@ -62,6 +62,9 @@ int main(int argc, char *argv[]) {
         gsKit_sync_flip(gsGlobal);
         gsKit_queue_exec(gsGlobal);
     }
+
+    // Enable Z-buffering now for the upcoming 3D gameplay loop
+    gsGlobal->ZBuffering = GS_SETTING_ON;
 
     // Main game loop
     while (1) {
