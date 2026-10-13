@@ -1,4 +1,4 @@
-EE_BIN = main.elf
+EE_BIN = shadow_county.elf
 EE_OBJS = main.o
 
 EE_INCS = -I$(PS2DEV)/gsKit/include
@@ -8,8 +8,7 @@ EE_LIBS = -lkernel
 all: $(EE_BIN)
 
 clean:
-	rm -f $(EE_OBJS) $(EE_BIN)
+rm -f $(EE_OBJS) $(EE_BIN)
 
 include $(PS2DEV)/ps2sdk/samples/Makefile.pref
 include $(PS2DEV)/ps2sdk/samples/Makefile.eeglobal
-
