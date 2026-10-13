@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     gsGlobal->Mode = GS_MODE_NTSC;
     gsGlobal->Height = 448;
     gsGlobal->Width = 640;
-    gsGlobal->PSM = GS_PSM_M32;
+    gsGlobal->PSM = GS_PSM_CT32;
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
     gsGlobal->ZBuffering = GS_SETTING_OFF;
