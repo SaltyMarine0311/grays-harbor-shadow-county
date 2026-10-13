@@ -1,37 +1,30 @@
 name: Build PS2 ISO
-
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
-
+  pull_request:
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ps2dev/ps2dev:latest
+      image: ps2dev/ps2dev:alpine
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Dependencies
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Build Tools
         run: |
-          apk update
-          apk add --no-cache make xorriso
-          ln -s /usr/bin/xorrisofs /usr/bin/genisoimage
-
+          apk update && apk add make genisoimage xorriso
       - name: Compile PS2 Project
+        run: make
+      - name: Create ISO Package
         run: |
-          make
-
-      - name: Package Bootable ISO
-        run: |
-          printf "BOOT2 = cdrom0:\\\\GRAYS-HARBOR.ELF;1
-VER = 1.00
-VMODE = NTSC
-" > SYSTEM.CNF
-          cp grays-harbor.elf GRAYS-HARBOR.ELF
-          genisoimage -iso-level 1 -o grays-harbor.iso SYSTEM.CNF GRAYS-HARBOR.ELF
-
+          mkdir -p iso_root
+          cp shadow_county.elf iso_root/GRAYS-HARBOR.ELF
+          echo "BOOT = cdrom0:\GRAYS-HARBOR.ELF;1" > iso_root/SYSTEM.CNF
+          echo "VER = 1.00" >> iso_root/SYSTEM.CNF
+          echo "VMODE = NTSC" >> iso_root/SYSTEM.CNF
+          genisoimage -o grays-harbor.iso -volid "GRAYS_HARBOR" -joliet -rational-rock iso_root/
       - name: Upload ISO Artifact
         uses: actions/upload-artifact@v4
         with:
