@@ -1,51 +1,32 @@
-/*
- ============================================================================
- Project Name : Grays Harbor: Shadow County
- Target      : PlayStation 2 (NetherSX2)
- Description : Core world & prototype logic
- ============================================================================
-*/
-
 #include <stdio.h>
-#include <math.h>
-#include <string.h>
+#include <tamtypes.h>
+#include <kernel.h>
+#include <sifrpc.h>
+#include <gsKit.h>
 
-typedef struct {
-    float x, y, z;
-} Vector3;
+int main(int argc, char *argv[]) {
+    // Initialize PS2 SIF RPC services
+    SifInitRpc(0);
 
-typedef struct {
-    Vector3 position;
-    Vector3 rotation;
-    float speed;
-    int health;
-} Player;
+    // Initialize gsKit graphics engine
+    GSGLOBAL *gsGlobal = gsKit_init_global();
+    gsGlobal->Mode = GS_MODE_NTSC;
+    gsGlobal->Height = 448;
+    gsGlobal->Width = 640;
+    gsGlobal->PSM = GS_SETMODE_NTSC;
 
-typedef enum {
-    BIOME_FOREST_CLEARING = 0,
-    BIOME_GRAYS_HARBOR_BAY,
-    BIOME_WEST_TOWN,
-    BIOME_EAST_INDUSTRIAL
-} BiomeType;
+    gsKit_init_screen(gsGlobal);
+    gsKit_mode_switch(gsGlobal, GS_ONESHOT);
 
-typedef struct {
-    char name[32];
-    BiomeType type;
-    float fog_density;
-} District;
+    // Set background color to dark blue (R: 15, G: 25, B: 50)
+    u64 bgColor = GS_SETREG_RGBA(15, 25, 50, 0);
 
-int main() {
-    Player player = {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, 0.15f, 100};
-    
-    District home_town;
-    strcpy(home_town.name, "West Harbor (Hoquiam)");
-    home_town.type = BIOME_WEST_TOWN;
-    home_town.fog_density = 0.05f;
-
-    printf("Grays Harbor: Shadow County - Engine Initialized!\n");
-    printf("Starting Area: %s\n", home_town.name);
-    printf("Player Position: (%.2f, %.2f, %.2f)\n", player.position.x, player.position.y, player.position.z);
+    // Game loop keeps the ELF running on hardware/emulator
+    while (1) {
+        gsKit_clear(gsGlobal, bgColor);
+        gsKit_sync_flip(gsGlobal);
+        gsKit_queue_exec(gsGlobal);
+    }
 
     return 0;
 }
-
