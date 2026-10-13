@@ -1,17 +1,8 @@
-#include <tamtypes.h>
-#include <kernel.h>
-#include <sifrpc.h>
-#include <gsKit.h>
-#include <dmaKit.h>
-
+#include "main.h"
 int main(int argc, char *argv[]) {
     SifInitRpc(0);
-
     GSGLOBAL *gsGlobal = gsKit_init_global();
-    if (!gsGlobal) {
-        return 1;
-    }
-
+    if (gsGlobal == NULL) return 1;
     gsGlobal->Mode = GS_MODE_NTSC;
     gsGlobal->Height = 448;
     gsGlobal->Width = 640;
@@ -19,17 +10,13 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
     gsGlobal->ZBuffering = GS_SETTING_OFF;
-
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_PERSISTENT);
-
-    u64 clearColor = GS_SETREG_RGBA(255, 0, 0, 0); // Bright Red to test visibility
-
+    u64 redColor = GS_SETREG_RGBA(255, 0, 0, 0);
     while (1) {
-        gsKit_clear(gsGlobal, clearColor);
+        gsKit_clear(gsGlobal, redColor);
         gsKit_sync_flip(gsGlobal);
         gsKit_queue_exec(gsGlobal);
     }
-
     return 0;
 }
