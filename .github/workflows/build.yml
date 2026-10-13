@@ -15,8 +15,7 @@ jobs:
 
       - name: Install genisoimage
         run: |
-          apt-get update
-          apt-get install -y genisoimage
+          apk update && apk add --no-cache cdrkit
 
       - name: Compile PS2 Project
         run: |
