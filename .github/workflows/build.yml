@@ -1,0 +1,29 @@
+name: Build PS2 ISO
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ps2dev/ps2dev:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install genisoimage
+        run: |
+          apt-get update
+          apt-get install -y genisoimage
+
+      - name: Compile PS2 Project
+        run: |
+          make
+
+      - name: Upload ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: grays-harbor-iso
+          path: grays-harbor.iso
