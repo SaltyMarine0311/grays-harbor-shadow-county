@@ -4,10 +4,10 @@ EE_INCS += -I$(PS2DEV)/gsKit/include -I$(PS2SDK)/ports/include
 EE_LIBS += -L$(PS2DEV)/gsKit/lib -L$(PS2SDK)/ports/lib -lgskit -ldmakit -lgraph -lromfs -lc -lm
 
 all: $(EE_BIN)
-	genisoimage -o grays-harbor.iso -R -J $(EE_BIN)
+	genisoimage -iso-level 4 -l -o grays-harbor.iso SYSTEM.CNF $(EE_BIN)
 
 clean:
-	rm -f $(EE_BIN) $(EE_OBJS) grays-harbor.iso
+	rm -f $(EE_BIN) $(EE_OBJS) grays-harbor.iso SYSTEM.CNF
 
 include $(PS2SDK)/samples/Makefile.pref
 include $(PS2SDK)/samples/Makefile.eeglobal
