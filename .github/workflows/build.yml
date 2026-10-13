@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install genisoimage
+      - name: Install ISO Tooling
         run: |
-          echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
           apk update
-          apk add --no-cache cdrkit
+          apk add --no-cache xorriso
+          ln -s /usr/bin/xorrisofs /usr/bin/genisoimage
 
       - name: Compile PS2 Project
         run: |
