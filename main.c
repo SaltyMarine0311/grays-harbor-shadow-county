@@ -15,10 +15,8 @@ int main(int argc, char *argv[]) {
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
     gsGlobal->ZBuffering = GS_SETTING_OFF;
     gsGlobal->Interlace = GS_INTERLACED;
-    gsGlobal->Field = GS_FIELD_INTERLACED;
     
     gsKit_init_screen(gsGlobal);
-    gsKit_mode_switch(gsGlobal, GS_ON);
     
     while (1) {
         gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x80, 0x00, 0x00, 0x80, 0x00));
