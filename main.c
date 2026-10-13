@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
         gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x80, 0x00, 0x00, 0x80, 0x00));
         
         gsKit_queue_exec(gsGlobal);
-        gsKit_sync_vblank();
+        gsKit_sync_flip();
     }
     
     return 0;
