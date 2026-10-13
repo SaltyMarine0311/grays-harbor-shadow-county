@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install ISO Tooling
+      - name: Install Dependencies
         run: |
           apk update
-          apk add --no-cache xorriso
+          apk add --no-cache make xorriso
           ln -s /usr/bin/xorrisofs /usr/bin/genisoimage
 
       - name: Compile PS2 Project
