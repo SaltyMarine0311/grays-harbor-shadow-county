@@ -1,23 +1,18 @@
-#include "main.h"
+#include <gsKit.h>
+#include <dmaKit.h>
+#include <malloc.h>
+#include <tamtypes.h>
+
 int main(int argc, char *argv[]) {
-    SifInitRpc(0);
-    GSGLOBAL *gsGlobal = gsKit_init_global();
-    if (gsGlobal == NULL) return 1;
-    gsGlobal->Mode = GS_MODE_NTSC;
-    gsGlobal->Height = 448;
-    gsGlobal->Width = 640;
-    gsGlobal->PSM = GS_PSM_CT32;
-    gsGlobal->PSMZ = GS_PSMZ_16S;
-    gsGlobal->DoubleBuffering = GS_SETTING_ON;
-    gsGlobal->ZBuffering = GS_SETTING_OFF;
+    GSGLOBAL *gsGlobal = gsKit_init_global(VESA_640x480_65K);
+    dmaKit_init(DCR_MODE_COMBINED, DCR_STD_PUTL, 1, DCR_MODE_SKID, 0);
     gsKit_init_screen(gsGlobal);
-    gsKit_mode_switch(gsGlobal, GS_PERSISTENT);
-    gsKit_set_test(gsGlobal, GS_ATEST_OFF);
-    u64 redColor = GS_SETREG_RGBA(255, 0, 0, 0);
+    gsKit_mode_switch(gsGlobal, GS_ON);
+
     while (1) {
-        gsKit_clear(gsGlobal, redColor);
-        gsKit_sync_flip(gsGlobal);
+        gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x80, 0x00, 0x00, 0x80, 0x00)); // Red screen test
         gsKit_queue_exec(gsGlobal);
+        gsKit_sync_vblank();
     }
     return 0;
 }
