@@ -18,10 +18,10 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSM = GS_PSM_CT32;
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
-    gsGlobal->ZBuffering = GS_SETTING_OFF; // Keep Z-off for 2D intro phase to avoid black screen
+    gsGlobal->ZBuffering = GS_SETTING_OFF; // Keep Z-off for 2D intro phase
 
     gsKit_init_screen(gsGlobal);
-    gsKit_mode_switch(gsGlobal, GS_ONESHOT);
+    gsKit_mode_switch(gsGlobal, GS_PERSISTENT); // Fixed: required for double buffering
 
     u64 bgColor = GS_SETREG_RGBA(10, 10, 15, 0);
     u64 gameBgColor = GS_SETREG_RGBA(15, 25, 50, 0);
