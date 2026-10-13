@@ -23,6 +23,15 @@ jobs:
         run: |
           make
 
+      - name: Package Bootable ISO
+        run: |
+          printf "BOOT2 = cdrom0:\\\\GRAYS-HARBOR.ELF;1
+VER = 1.00
+VMODE = NTSC
+" > SYSTEM.CNF
+          cp grays-harbor.elf GRAYS-HARBOR.ELF
+          genisoimage -iso-level 1 -o grays-harbor.iso SYSTEM.CNF GRAYS-HARBOR.ELF
+
       - name: Upload ISO Artifact
         uses: actions/upload-artifact@v4
         with:
