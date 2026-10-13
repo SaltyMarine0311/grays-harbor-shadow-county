@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     gsGlobal->PSM = GS_PSM_CT32;
     gsGlobal->PSMZ = GS_PSMZ_16S;
     gsGlobal->DoubleBuffering = GS_SETTING_ON;
-    gsGlobal->ZBuffering = GS_SETTING_OFF;
+    gsGlobal->ZBuffering = GS_SETTING_ON;
 
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_ONESHOT);
