@@ -1,8 +1,8 @@
 EE_BIN = shadow_county.elf
 EE_OBJS = main.o
 
-EE_INCS += -I$(PS2DEV)/gsKit/include -I$(GSKIT)/include
-EE_LIBS += -L$(PS2DEV)/gsKit/lib -L$(GSKIT)/lib -lgskit -ldmakit -lgraph -lmath3d -lpacket -ldmac -lkernel -lpad
+EE_INCS += -I$(PS2DEV)/gsKit/include
+EE_LIBS += -L$(PS2DEV)/gsKit/lib -lgskit -ldmakit -lgraph -lmath3d -lpacket -ldmac -lkernel -lpad
 
 all: $(EE_BIN)
 
