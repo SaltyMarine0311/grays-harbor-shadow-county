@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     gsKit_init_screen(gsGlobal);
     gsKit_mode_switch(gsGlobal, GS_ONESHOT);
 
-    // Set background color to dark blue (R: 15, G: 25, B: 50)
+    // Set background color to dark blue
     u64 bgColor = GS_SETREG_RGBA(15, 25, 50, 0);
 
     // Game loop keeps the ELF running on hardware/emulator
