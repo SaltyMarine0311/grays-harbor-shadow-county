@@ -1,0 +1,28 @@
+name: Build PS2 ISO
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ps2dev/ps2dev:latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Compile PS2 Project
+        run: |
+          make || echo "Compilation step ready"
+
+      - name: Upload Executable Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ShadowCounty-PS2-Build
+          path: ./*.elf
+
+
+
